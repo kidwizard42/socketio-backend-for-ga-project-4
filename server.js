@@ -3,7 +3,7 @@ const http = require('http').Server(app);
 // const io = require('socket.io')(http);
 const io = require("socket.io")(http, {
   cors: {
-    origin: ["http://localhost:3000","http://localhost:3001","http://localhost:4000"],
+    origin: ["http://localhost:3000","http://localhost:3001","http://localhost:4000",],
     methods: ["GET", "POST"]
   }
 });
@@ -16,10 +16,14 @@ io.on('connection', socket => {
     // console.log('user has disconnected')
   })
 
-  socket.on('message', (message) => {
-    // console.log('hit')
-    io.emit('message', message)
+  socket.on('message', (message,name) => {
+    if(!name){
+      io.emit('message', message,`user${socket.id}`)
+    }else{
+      io.emit('message', message, name)
+    }
   })
+
 
 })
 
