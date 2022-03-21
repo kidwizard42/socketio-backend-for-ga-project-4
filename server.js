@@ -18,7 +18,7 @@ io.on('connection', socket => {
 
   socket.on('message', (message,name) => {
     if(!name){
-      io.emit('message', message,`USER${socket.id}`)
+      io.emit('message', message,`USER-${socket.id}`)
     }else{
       io.emit('message', message, name)
     }
